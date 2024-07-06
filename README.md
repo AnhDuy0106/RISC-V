@@ -5,3 +5,8 @@ TỔNG QUAN VỀ DỰ ÁN:
 RISC-V (Reduced Instruction Set Architecture) là một kiến trúc tập lệnh tiêu chuẩn mở (ISA) dựa trên các nguyên tắc máy tính tập lệnh giảm (RISC) đã được thiết lập. Không giống như hầu hết các thiết kế ISA khác, RISC-V ISA được cung cấp theo giấy phép nguồn mở không yêu cầu phí sử dụng. Dự án này tập trung vào việc mô phỏng RISC-V bằng code Verilog, sử dụng phần mềm mô phỏng Modelsim.
 
 RISC-V rất quan trọng vì nó sẽ cho phép các nhà sản xuất thiết bị nhỏ hơn xây dựng phần cứng mà không phải trả tiền bản quyền và cho phép các nhà phát triển và nhà nghiên cứu thiết kế và thử nghiệm kiến trúc tập lệnh đã được chứng minh và có sẵn miễn phí. RISC-V lý tưởng cho nhiều ứng dụng khác nhau từ IOT đến các hệ thống nhúng như đĩa, CPU, Máy tính, SOC, v.v.
+
+ENG:
+RISC-V(Reduced Instruction Set Architecture) is an open standard instruction set architecture (ISA) based on established reduced instruction set computer (RISC) principles. Unlike most other ISA designs, the RISC-V ISA is provided under open source licenses that do not require fees to use. This project focuses on making a RISC-V using code Verilog, and using software Modelsim to simulation.
+
+RISC-V is significant because it will allow smaller device manufacturers to build hardware without paying royalties and allow developers and researchers to design and experiment with a proven and freely available instruction set architecture. RISC-V is ideal for a variety of applications from IOTs to Embedded systems such as disks, CPUs, Calculators, SOCs, etc.
