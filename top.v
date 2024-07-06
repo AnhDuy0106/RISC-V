@@ -1,9 +1,9 @@
 module top(
     input clock,
     input reset,
+    output memwriteM,
     output [31:0] writedataM,
-    output [31:0] dataAdrM,
-    output memwriteM
+    output [31:0] dataAdrM
 );
 
 wire [31:0] PCF, InstrF, readDataM;
