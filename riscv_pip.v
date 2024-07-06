@@ -3,10 +3,11 @@ module riscv_pip(
     input reset,
     input  [31:0] readDataM,
     input  [31:0] InstrF,
+    output memwriteM,
     output [31:0] writedataM,
     output [31:0] ALUresultM,
-    output [31:0] PCF,
-    output memwriteM
+    output [31:0] PCF
+    
 );
 
 wire ALUSrcAE, RegwriteM, RegwriteW, ZeroE, SignE, PCJalSrcE, PCSrcE;
