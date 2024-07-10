@@ -20,6 +20,7 @@ RISC-V is significant because it will allow smaller device manufacturers to buil
 In this stage, the processor fetches the instruction from memory. Then, the
 instruction is loaded into the instruction cache, which is used to store the
 recently used instructions.
+
 2. Decode
 
 In this stage, the processor decodes the fetched instruction to determine the
