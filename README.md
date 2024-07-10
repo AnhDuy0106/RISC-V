@@ -44,4 +44,5 @@ as “add” does not involve memory access.
 In this stage, the results of the operation are written back to the appropriate
 register in the register file. 
 
-![image](https://github.com/AnhDuy0106/RISC-V/assets/126902854/e7a35655-0816-4274-89cc-4c5270fb6eab)
+![image](https://github.com/AnhDuy0106/RISC-V/assets/126902854/e32975e6-51d5-4d0d-bb05-03b4470eac76)
+
