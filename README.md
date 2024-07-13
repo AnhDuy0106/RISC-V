@@ -1,6 +1,6 @@
 Block diagram of RISC-V:
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/540ecbe1-20cd-445d-a4d9-b7271babfa9b)
 
 
                               
