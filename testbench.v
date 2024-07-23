@@ -25,7 +25,7 @@ module testbench();
         reset = 0; 
       	$display("Start");
         #1000; 
-      $display("Value of ALU = %d", uut.alu.Result);
+        $display("Value of ALU = %d", uut.alu.Result);
         $finish;
 
     end
