@@ -1,85 +1,88 @@
 module CPU (
     input wire clk,
     input wire reset
+   
 );
+  // Wires and Registers
+  	wire [31:0] pc;
+  	wire [3:0] alucontrol;
+    wire [31:0] instr;           // Instruction read from InstructionMemory
+    wire [31:0] rd1, rd2;        // RegisterFile read data
+    wire [31:0] alu_result;      // Result from ALU
+    wire [31:0] data_mem_out;    // Data read from DataMemory
+    wire [31:0] alu_operand2;    // Second operand for ALU
+    wire [1:0] alu_op;           // ALU operation select
+    wire mem_write;              // Memory write enable
+    wire reg_write;              // Register write enable
+    wire alu_src;                // ALU source select
+    wire mem_to_reg;             // Memory to register data select
+    wire branch;                 // Branch control signal
 
-    wire [31:0] pc;
-    wire [31:0] instr;
-    wire [31:0] rd1;
-    wire [31:0] rd2;
-    wire [31:0] imm;
-    wire [31:0] alu_result;
-    wire [31:0] mem_rd;
-    wire [31:0] wd;
-    wire zero;
-    wire branch;
-    wire memwrite;
-    wire regwrite;
-    wire alusrc;
-    wire memtoreg;
-    wire [1:0] aluop;
-    wire [3:0] alucontrol;
-
-    // Instantiate components
-    ProgramCounter PC (
+    
+    ProgramCounter pc_inst (
         .clk(clk),
         .reset(reset),
         .pc(pc)
     );
 
-    InstructionMemory IM (
+    InstructionMemory instr_mem (
         .a(pc),
         .rd(instr)
     );
 
-    RegisterFile RF (
+
+    wire [6:0] opcode = instr[6:0];
+    wire [6:0] funct7 = instr[31:25];
+    wire [2:0] funct3 = instr[14:12];
+    wire [4:0] rs1 = instr[19:15];
+    wire [4:0] rs2 = instr[24:20];
+    wire [4:0] rd = instr[11:7];
+    
+    ControlUnit control (
+        .opcode(opcode),
+        .ALUOp(alu_op),
+        .MemWrite(mem_write),
+        .RegWrite(reg_write),
+        .ALUSrc(alu_src),
+        .MemToReg(mem_to_reg),
+        .Branch(branch)
+    );
+
+    ALUControl alu_control (
+        .aluop(alu_op),
+        .funct7(funct7),
+        .funct3(funct3),
+        .alucontrol(alucontrol)
+    );
+
+    RegisterFile reg_file (
         .clk(clk),
-        .we(regwrite),
-        .rs1(instr[19:15]),
-        .rs2(instr[24:20]),
-        .rd(instr[11:7]),
-        .wd(wd),
+        .we(reg_write),
+        .rs1(rs1),
+        .rs2(rs2),
+        .rd(rd),
+        .wd(alu_result),
         .rd1(rd1),
         .rd2(rd2)
     );
 
-    ALUControl ALUC (
-        .aluop(aluop),
-        .funct7(instr[31:25]),
-        .funct3(instr[14:12]),
-        .alucontrol(alucontrol)
-    );
-
-    ALU ALU (
-        .A(rd1),
-        .B(alusrc ? imm : rd2),
-        .ALUControl(alucontrol),
-        .Result(alu_result),
-        .Zero(zero)
-    );
-
-    DataMemory DM (
+    DataMemory data_mem (
         .clk(clk),
-        .we(memwrite),
+        .we(mem_write),
         .addr(alu_result),
         .wd(rd2),
-        .rd(mem_rd)
+        .rd(data_mem_out)
     );
 
-    ControlUnit CU (
-        .opcode(instr[6:0]),
-        .ALUOp(aluop),
-        .MemWrite(memwrite),
-        .RegWrite(regwrite),
-        .ALUSrc(alusrc),
-        .MemToReg(memtoreg),
-        .Branch(branch)
+    ALU alu (
+        .A(rd1),
+        .B(alu_operand2),
+        .ALUControl(alucontrol),
+        .Result(alu_result),
+        .Zero()
     );
 
-    // Sign extend immediate
-    assign imm = {{20{instr[31]}}, instr[31:20]};
-
-    // Write data to register file
-    assign wd = memtoreg ? mem_rd : alu_result;
+    
+    assign alu_operand2 = alu_src ? rd2 : instr[31:0];  // Immediate value or register value (B)
 
 endmodule
